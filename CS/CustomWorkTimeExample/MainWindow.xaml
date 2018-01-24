@@ -1,0 +1,63 @@
+﻿<Window
+    x:Class="CustomWorkTimeExample.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dxsch="http://schemas.devexpress.com/winfx/2008/xaml/scheduling"
+    xmlns:local="clr-namespace:CustomWorkTimeExample"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="800"
+    Height="600"
+    mc:Ignorable="d"
+    Title="MainWindow">
+    
+    <Window.Resources>
+        <!--region #ResourceBrushSchemaCollection-->
+        <dxsch:ResourceBrushSchemaCollection x:Key="MyResourceSchemas">
+            <dxsch:ResourceBrushSchema>
+                <dxsch:ResourceBrushSchema.LightCell>
+                    <dxsch:CellBrushSchema Background="White"
+                                           DarkBorderBrush="Gray" 
+                                           LightBorderBrush="LightGray" />
+                </dxsch:ResourceBrushSchema.LightCell>
+                <dxsch:ResourceBrushSchema.DarkCell>
+                    <dxsch:CellBrushSchema Background="Gray"
+                                           DarkBorderBrush="Gray"
+                                           LightBorderBrush="Gray"/>
+                </dxsch:ResourceBrushSchema.DarkCell>
+            </dxsch:ResourceBrushSchema>
+            <dxsch:ResourceBrushSchema BaseColor="#FFF3FFE5" />
+            <dxsch:ResourceBrushSchema BaseColor="#FFE5FBFF" />
+            <dxsch:ResourceBrushSchema BaseColor="#FFFFF1E5" />
+        </dxsch:ResourceBrushSchemaCollection>
+        <!--endregion #ResourceBrushSchemaCollection-->
+        <!--region #DateHeaderFormatTemplate--> 
+        <DataTemplate x:Key="DateHeaderControl.ContentTemplate">
+            <TextBlock Text="{Binding Interval.Start, StringFormat='ddd'}" 
+                       FontSize="8"/>
+        </DataTemplate>
+        <!--endregion #DateHeaderFormatTemplate-->
+    </Window.Resources>
+    
+    <Grid>
+        <!--region #SchedulerControl-->
+        <dxsch:SchedulerControl CustomWorkTime="SchedulerControl_CustomWorkTime"
+            GroupType="Resource"
+            ResourceBrushSchemas="{StaticResource MyResourceSchemas}">
+            <dxsch:SchedulerControl.ResourceItems>
+                <dxsch:ResourceItem Caption="One" Id="1" />
+                <dxsch:ResourceItem Caption="Two" Id="2" />
+                <dxsch:ResourceItem Caption="Three" Id="3" />
+                <dxsch:ResourceItem Caption="Four" Id="4" />
+            </dxsch:SchedulerControl.ResourceItems>
+            <dxsch:WeekView x:Name="weekView1"
+                ResourcesPerPage="4"
+                ShowAllDayArea="False"
+                NavigationButtonsVisibility="Never"
+                DateHeaderContentTemplate="{StaticResource DateHeaderControl.ContentTemplate}"/>
+            <dxsch:TimelineView x:Name="timelineView1"/>
+        </dxsch:SchedulerControl>
+        <!--endregion #SchedulerControl-->
+    </Grid>
+
+</Window>
